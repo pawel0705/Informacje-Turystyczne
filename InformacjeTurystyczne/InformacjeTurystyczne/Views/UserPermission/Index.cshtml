@@ -1,0 +1,67 @@
+﻿@model InformacjeTurystyczne.Models.ViewModels.UserIndexData
+
+<h2> Użytkownicy przynależności </h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>UserName</th>
+            <th>Imprezy</th>
+            <th>Regiony</th>
+            <th>Schroniska</th>
+            <th>Szlaki</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Users)
+        {
+            string selectedRow = "";
+            if (item.Id == (string)ViewData["IdUser"])
+            {
+                selectedRow = "success";
+            }
+        <tr class="@selectedRow">
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @{
+                    foreach (var entertiment in item.PermissionPartys)
+                    {
+                        @entertiment.Party.IdParty @: @entertiment.Party.Name <br />
+                    }
+                }
+            </td>
+            <td>
+                @{
+                    foreach (var region in item.PermissionRegions)
+                    {
+                        @region.Region.IdRegion @: @region.Region.Name <br />
+                    }
+                }
+            </td>
+            <td>
+                @{
+                    foreach (var shelter in item.PermissionShelters)
+                    {
+                        @shelter.Shelter.IdShelter @: @shelter.Shelter.Name <br />
+                    }
+                }
+            </td>
+            <td>
+                @{
+                    foreach (var trail in item.PermissionTrails)
+                    {
+                        @trail.Trail.IdTrail @: @trail.Trail.Name <br />
+                    }
+                }
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

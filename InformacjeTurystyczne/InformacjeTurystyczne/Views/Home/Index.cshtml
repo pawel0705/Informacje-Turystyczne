@@ -1,0 +1,24 @@
+﻿@model HomepageVM
+
+<div class="page home" id="homepage">
+    <div class="home__title">
+        <h1>SYSTEM INFORMACJI TURYSTYCZNEJ</h1>
+    </div>
+    @{ string[] mp4sources = {
+    "~/media/forest.mp4",
+    "~/media/fog-landscape.mp4",
+    "~/media/winter-forest.mp4",
+    "~/media/mountains.mp4",
+    };
+        //Random rnd = new Random();
+        string mp4ToPlay = Url.Content(mp4sources[Model.RandomInt(mp4sources.Length)]);
+    }
+    <video class="home__background-video" autoplay loop muted>
+        <source src=@mp4ToPlay type="video/mp4" />
+    </video>
+</div>
+
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script>
+    initHomepage();
+</script>

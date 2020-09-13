@@ -1,0 +1,121 @@
+﻿@model TouristInformationVM
+
+
+<div class="page info">
+    <div class="sidebar">
+        <a class="navbar__link" asp-area="" asp-controller="TouristInformation" asp-action="GeneratePdf">
+            <li class="navbar__item">Generuj raport</li>
+        </a>
+    </div>
+    <div class="info__list" id="info__list">
+    </div>
+    <script type="module">
+        import Attraction from "./js/attraction.js";
+        import Trail from "./js/trail.js";
+        import Shelter from "./js/shelter.js";
+        import Party from "./js/party.js";
+        import Page from "./js/infoPage.js";
+
+        window.addEventListener("load", () => {
+            let itemArray = [];
+            let regions = [];
+            let types = [];
+            let attraction = {};
+            let trail = {};
+            let shelter = {};
+            let party = {};
+
+            const addProperties = (type, region) => {
+                if (Array.isArray(region)) {
+                    for (let reg of region) {
+                        if (!regions.includes(reg)) {
+                            regions.push(reg);
+                        }
+                    }
+                } else {
+                    if (!regions.includes(region)) {
+                        regions.push(region);
+                    }
+                }
+                if (!types.includes(type)) {
+                    types.push(type);
+                }
+            }
+
+            @foreach(var attraction in Model.attractions.GetAllAttractionToUser())
+            {
+            <text>
+            attraction = new Attraction("@Html.Raw(attraction.AttractionType)");
+            attraction.name = "@Html.Raw(attraction.Name)";
+            attraction.region = "@Html.Raw(attraction.Region.Name)";
+            attraction.description = "@Html.Raw(attraction.Description)";
+            itemArray.push(attraction);
+            addProperties(attraction.type, attraction.region);
+            </text>
+            }
+            @foreach(var trail in Model.trails.GetAllTrailToUser())
+            {
+            <text>
+            trail = new Trail();
+            trail.name = "@Html.Raw(trail.Name)";
+            trail.colour = "@Html.Raw(trail.Colour)";
+            trail.length = "@Html.Raw(trail.Length)";
+            trail.difficulty = "@Html.Raw(trail.Difficulty)";
+            trail.region = [];
+            @if (trail.RegionLocation != null && trail.RegionLocation.Count > 0)
+            {
+                @foreach(var region in trail.RegionLocation)
+                {
+                    var regions = Model.regions;
+                    var regTask = regions.GetRegionByID(region.IdRegion);
+                    var reg = regTask.Result;
+                    @:trail.region.push("@Html.Raw(reg.Name)");
+                    //@:trail.region.push("@Html.Raw(region.Region.Name)");
+                }
+            } else
+            {
+                @:trail.region = "N/A";
+            }
+            trail.open = "@Html.Raw(trail.Open)";
+            trail.feedback = "@Html.Raw(trail.Feedback)";
+            trail.description = "@Html.Raw(trail.Description)";
+            itemArray.push(trail);
+            addProperties(trail.type, trail.region);
+            </text>
+            }
+            @foreach(var shelter in Model.shelters.GetAllShelterToUser())
+            {
+            <text>
+            shelter = new Shelter();
+            shelter.name = "@Html.Raw(shelter.Name)";
+            shelter.region = "@Html.Raw(shelter.Region.Name)";
+            shelter.places = "@Html.Raw(shelter.Places)";
+            shelter.maxPlaces = "@Html.Raw(shelter.MaxPlaces)";
+            shelter.open = "@Html.Raw(shelter.IsOpen)";
+            shelter.phoneNumber = "@Html.Raw(shelter.PhoneNumber)";
+            shelter.description = "@Html.Raw(shelter.Description)";
+            itemArray.push(shelter);
+            addProperties(shelter.type, shelter.region);
+            </text>
+            }
+            @foreach(var party in Model.parties.GetAllPartyToUser())
+            {
+            <text>
+            party = new Party();
+            party.name = "@Html.Raw(party.Name)";
+            party.region = "@Html.Raw(party.Region.Name)";
+            party.placeDescription = "@Html.Raw(party.PlaceDescription)";
+            party.upToDate = "@Html.Raw(party.UpToDate)";
+            party.description = "@Html.Raw(party.Description)";
+            itemArray.push(party);
+            addProperties(party.type, party.region);
+            </text>
+            }
+
+            let infoPage = new Page(itemArray, regions, types);
+            infoPage.renderItems();
+            infoPage.renderFilters();
+        });
+    </script>
+</div>
+

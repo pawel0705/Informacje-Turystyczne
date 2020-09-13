@@ -1,0 +1,38 @@
+﻿@model InformacjeTurystyczne.Models.Tabels.Subscription
+
+<h1>Details</h1>
+
+<div>
+    <h4>Subscription</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IdSubscription)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IdSubscription)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IsSubscribed)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IsSubscribed)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Region)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Region.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.User)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.User.UserName)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.IdRegion">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

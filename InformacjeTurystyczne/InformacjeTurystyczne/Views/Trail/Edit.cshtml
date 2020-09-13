@@ -1,0 +1,77 @@
+﻿@model InformacjeTurystyczne.Models.Tabels.Trail
+
+<h1>Edit</h1>
+
+<h4>Trail</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IdTrail" />
+            <div class="form-group">
+                <label asp-for="IdTrail" class="control-label"></label>
+                <div>@Html.DisplayFor(model => model.IdTrail)</div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Colour" class="control-label"></label>
+                <input asp-for="Colour" class="form-control" />
+                <span asp-validation-for="Colour" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Open" class="control-label"></label>
+                <input asp-for="Open" class="form-control" />
+                <span asp-validation-for="Open" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Feedback" class="control-label"></label>
+                <input asp-for="Feedback" class="form-control" />
+                <span asp-validation-for="Feedback" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Length" class="control-label"></label>
+                <input asp-for="Length" class="form-control" />
+                <span asp-validation-for="Length" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Difficulty" class="control-label"></label>
+                <input asp-for="Difficulty" class="form-control" />
+                <span asp-validation-for="Difficulty" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <ul>
+            @foreach (var region in (List<RegionSelection>)ViewBag.Regions)
+            {
+                <li>
+                    <input type="checkbox" name="selectedRegions"
+                           value="@Html.Raw(region.Name)"
+                           id="Region @Html.Raw(region.Name)"
+                           @(Html.Raw(region.Selected ? "checked=\"checked\"" : "")) />
+                    <label for="Region @Html.Raw(region.Name)">"@Html.Raw(region.Name)" </label>
+                    <br>
+                </li>
+            }
+            </ul>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+            </div>
+        </div>
+
+        <div>
+            <a asp-action="Index">Back to List</a>
+        </div>
+
+        @section Scripts {
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        }

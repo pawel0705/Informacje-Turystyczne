@@ -1,0 +1,50 @@
+﻿@model InformacjeTurystyczne.Models.Tabels.Subscription
+
+<h1>Edit</h1>
+
+<h4>Subscription</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IdSubscription" />
+            <div class="form-group">
+                <label asp-for="IdSubscription" class="control-label"></label>
+                <div>@Html.DisplayFor(model => model.IdSubscription)</div>
+            </div>
+            <div class="form-group">
+                <label asp-for="IsSubscribed" class="control-label"></label>
+                <input asp-for="IsSubscribed" class="form-control" />
+                <span asp-validation-for="IsSubscribed" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Region" class="control-label"></label>
+                <select asp-for="IdRegion" class="form-control" asp-items="ViewBag.IdRegion">
+                    <option value="">-- Select Region --</option>
+                </select>
+                <span asp-validation-for="IdRegion" class="text-danger" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="User" class="control-label"></label>
+                <select asp-for="IdUser" class="form-control" asp-items="ViewBag.IdUser">
+                    <option value="">-- Select User --</option>
+                </select>
+                <span asp-validation-for="IdUser" class="text-danger" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

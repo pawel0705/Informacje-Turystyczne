@@ -1,0 +1,91 @@
+﻿@using Microsoft.AspNetCore.Identity; 
+
+<!DOCTYPE html>
+
+@inject SignInManager<AppUser> SignInManager
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Informacje Turystyczne</title>
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/reset.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <ul class="navbar__list">
+                <a class="navbar__link" asp-area="" asp-controller="Home" asp-action="Index">
+                    <li class="navbar__item">Strona główna</li>
+                </a>
+                <a class="navbar__link" asp-area="" asp-controller="TouristInformation" asp-action="Index">
+                    <li class="navbar__item">Informacje turystyczne</li>
+                </a>
+                <a class="navbar__link" asp-area="" asp-controller="Notifications" asp-action="Index">
+                    <li class="navbar__item">Powiadomienia</li>
+                </a>
+                @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+                {
+                    <a class="navbar__link" asp-area="" asp-controller="User" asp-action="Index">
+                        <li class="navbar__item">Użytkownicy</li>
+                    </a>
+                    <a class="navbar__link" asp-area="" asp-controller="Mail" asp-action="Index">
+                        <li class="navbar__item">Wiadomości</li>
+                    </a>
+                }
+                @if (User.IsInRole("Admin"))
+                {
+                    <a class="navbar__link" asp-area="" asp-controller="Admin" asp-action="Index">
+                        <li class="navbar__item">Panel administracyjny</li>
+                    </a>
+                    <a class="navbar__link" asp-area="" asp-controller="Role" asp-action="Index">
+                        <li class="navbar__item">Zarządzanie rolami</li>
+                    </a>
+                }
+                <a class="navbar__link" asp-area="" asp-controller="Help" asp-action="Index">
+                    <li class="navbar__item">Help</li>
+                </a>
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <a class="navbar__link" href="javascript:document.getElementById('logoutForm').submit()">
+                        <li class="navbar__item">Wyloguj</li>
+                    </a>
+                }
+                else
+                {
+                    <a class="navbar__link" asp-area="" asp-controller="Account" asp-action="Register">
+                        <li class="navbar__item">Zarejestruj</li>
+                    </a>
+                    <a class="navbar__link" asp-area="" asp-controller="Account" asp-action="Login">
+                        <li class="navbar__item">Zaloguj</li>
+                    </a>
+                }
+            </ul>
+        </div>
+    </header>
+    <div>
+        <main role="main">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer>
+    </footer>
+
+    <form asp-area="" asp-controller="Account" asp-action="Logout" id="logoutForm"
+          method="post" class="navbar-right">
+    </form>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script> 
+    @RenderSection("Scripts", required: false)
+    <script>
+        window.addEventListener("load",  () => initNavbar(
+            "@ViewContext.RouteData.Values["Controller"]",
+            "@ViewContext.RouteData.Values["Action"]"
+        ));
+    </script>
+</body>
+</html>

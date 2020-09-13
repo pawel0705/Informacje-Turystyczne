@@ -1,0 +1,95 @@
+﻿@model LoginVM
+
+<div class="login">
+    <div class="panel">
+        <h1>Strona logowania</h1>
+        <h2>
+            Zaloguj się lub
+            <a asp-action="Register" asp-controller="Account"> Zarejestruj</a>
+        </h2>
+
+        <div asp-validation-summary="All">
+            <!--
+        <script>
+            window.fbAsyncInit = function () {
+                FB.init({
+                    appId: '227029605074219',
+                    cookie: true,
+                    xfbml: true,
+                    version: 'v6.0'
+                });
+
+                FB.AppPartys.logPageView();
+
+                FB.getLoginStatus(function (response) {
+                    statusChangeCallback(response);
+                });
+            };
+
+            (function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) { return; }
+                js = d.createElement(s); js.id = id;
+                js.src = "https://connect.facebook.net/en_US/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+
+            function checkLoginState() {
+                FB.getLoginStatus(function (response) {
+                    statusChangeCallback(response);
+                });
+            }
+        </script>
+            -->
+            <h3>Zaloguj lokalnie</h3>
+
+            <form asp-action="Login" asp-controller="Account" method="post" class="form-horizontal" role="form">
+                <div>
+                    <label>Nazwa użytkownika</label>
+                    <input asp-for="UserName" type="text" name="username" value="" />
+                </div>
+
+                <div>
+                    <label>Hasło</label>
+                    <input asp-for="Password" type="password" name="password" value="" />
+                </div>
+
+                <button type="submit">Zaloguj</button>
+
+                <!--
+            <a asp-action="GoogleLogin">Zaloguj kontem Google</a>
+
+            <fb:login-button scope="public_profile,email"
+                                onlogin="checkLoginState();">
+            </fb:login-button>
+            -->
+
+            </form>
+
+            <h3>Zaloguj za pomocą konta społecznościowego</h3>
+
+            <div>
+                @{
+                if (Model.ExternalLogins.Count == 0)
+                {
+                    <div>Brak dodatkowych możliwości logowania</div>
+                }
+                else
+                {
+                    <form asp-action="ExternalLogin" asp-controller="Account" method="post" asp-route-returnUrl="@Model.ReturnUrl">
+                        <div class="externalLogin">
+                            @foreach (var exLogin in Model.ExternalLogins)
+                            {
+                                <button type="submit" name="provider" value="@exLogin.Name">
+                                    @exLogin.DisplayName
+                                </button>
+                            }
+                        </div>
+                    </form>
+                }
+                }
+            </div>
+
+        </div>
+    </div>
+</div>

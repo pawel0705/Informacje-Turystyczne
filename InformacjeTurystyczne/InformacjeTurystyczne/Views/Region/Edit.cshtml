@@ -1,0 +1,70 @@
+﻿@model InformacjeTurystyczne.Models.Tabels.Region
+
+<h1>Edit</h1>
+
+<h4>Region</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IdRegion" />
+            <div class="form-group">
+                <label asp-for="IdRegion" class="control-label"></label>
+                <div>@Html.DisplayFor(model => model.IdRegion)</div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <table class="table">
+                <tr>
+                    @{
+                        int cnt = 0;
+                        List<InformacjeTurystyczne.Models.ViewModels.PermissionTrailData> trails = ViewBag.Trails;
+
+                    @: </tr>Szlaki<tr>
+
+
+
+
+
+
+
+
+                        foreach (var trail in trails)
+                        {
+                            if (cnt++ % 3 == 0)
+                            {
+                            @:</tr><tr>
+                            }
+                            @:<td>
+                                <input type="checkbox"
+                                       name="selectedTrails"
+                                       value="@trail.IdTrail"
+                                       @(Html.Raw(trail.Assigned ? "checked=\"checked\"" : "")) />
+                                @trail.IdTrail @:  @trail.Name
+                            @:</td>
+                        }
+
+                    @:</tr>
+                    }
+                </table>
+
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }

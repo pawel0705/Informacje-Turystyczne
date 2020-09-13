@@ -1,0 +1,67 @@
+﻿@model NotificationsVM
+
+<div class="page info">
+    <div class="sidebar">
+    </div>
+    <div class="info__list" id="info__list">
+    </div>
+    <script type="module">
+        import Message from "./js/message.js";
+        import Page from "./js/messagePage.js";
+        import Subscription from "./js/subscription.js";
+
+        window.addEventListener("load", () => {
+
+            let itemArray = [];
+            let regions = [];
+            let subscriptions = new Subscription()
+
+            const addProperties = (region) => {
+                if (!regions.includes(region)) {
+                    regions.push(region);
+                }
+            }
+
+            @if (Model.user != null)
+            {
+                @:subscriptions.addUrl = "@Url.Action("AddSubscription")";
+                @:subscriptions.removeUrl = "@Url.Action("RemoveSubscription")";
+                @foreach(var region in Model.regions)
+                {
+                <text>
+                subscriptions.regionSubscriptions["@Html.Raw(region.Name)"] = false;
+                </text>
+                }
+                @foreach(var region in Model.user.Subscriptions.Select(s => s.Region))
+                {
+                <text>
+                subscriptions.regionSubscriptions["@Html.Raw(region.Name)"] = true;
+                </text>
+                }
+
+            }
+            let message = {};
+            @foreach(var message in Model.messages.GetAllMessage().Result)
+            {
+            <text>
+            message = new Message();
+            message.name = "@Html.Raw(message.Name)";
+            message.region = "@Html.Raw(message.Region.Name)";
+            message.description = "@Html.Raw(message.Description)";
+            message.date = "@Html.Raw(message.PostingDate1)";
+            message.category = "@Html.Raw(message.Category.Name)";
+            itemArray.push(message);
+            addProperties(message.region);
+            </text>
+            }
+
+            let messagePage = new Page(itemArray, regions, subscriptions);
+            messagePage.renderItems();
+            messagePage.renderFilters();
+            @if (Model.user != null)
+            {
+                @:messagePage.renderSubs();
+            }
+            });
+    </script>
+</div>

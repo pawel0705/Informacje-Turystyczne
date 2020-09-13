@@ -1,0 +1,47 @@
+﻿@model IEnumerable<InformacjeTurystyczne.Models.Tabels.Region>
+
+<h1>Region</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdRegion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>Szlaki</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdRegion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @{
+                        foreach (var trail in item.RegionLocation)
+                        {
+                            @trail.Trail.IdTrail @: @trail.Trail.Name <br />
+                        }
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.IdRegion">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.IdRegion">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.IdRegion">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

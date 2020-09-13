@@ -1,0 +1,51 @@
+﻿@model RoleUsersVM
+
+<h1>Aktualizuj role</h1>
+<a asp-action="Index">Cofnij</a>
+<div asp-validation-summary="All"></div>
+
+<form method="post">
+    <input type="hidden" name="roleName" value="@Model.Role.Name" />
+    <input type="hidden" name="roleId" value="@Model.Role.Id" />
+
+    <h2>Dodaj do @Model.Role.Name</h2>
+    <table>
+        @if (Model.NonMembers.Count() == 0)
+        {
+            <tr><td colspan="2">Wszyscy użytkownicy należą</td></tr>
+        }
+        else
+        {
+            @foreach (AppUser user in Model.NonMembers)
+            {
+                <tr>
+                    <td>@user.UserName</td>
+                    <td>
+                        <input type="checkbox" name="AddId" value="@user.Id">
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+
+    <h2>Usuń z @Model.Role.Name</h2>
+    <table>
+        @if (Model.Members.Count() == 0)
+        {
+            <tr><td colspan="2">Brak</td></tr>
+        }
+        else
+        {
+            @foreach (AppUser user in Model.Members)
+            {
+                <tr>
+                    <td>@user.UserName</td>
+                    <td>
+                        <input type="checkbox" name="DeleteId" value="@user.Id">
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+    <button type="submit">Zapisz</button>
+</form>

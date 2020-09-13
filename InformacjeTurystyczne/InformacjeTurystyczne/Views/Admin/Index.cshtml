@@ -1,0 +1,56 @@
+﻿
+
+<h1> Wszyscy użytkownicy </h1>
+<a asp-action="Create">Dodaj użytkownika</a>
+
+<table>
+    <tr><th>Id użytkownika</th><th>Nazwa</th><th>Adres e-mail</th><th colspan="3">Konto ważne</th></tr>
+
+    @foreach (var user in (IEnumerable<AppUser>)ViewData["Users"])
+    {
+        <tr>
+            <td>@user.Id</td>
+            <td>@user.UserName</td>
+            <td>@user.Email</td>
+            <td>@user.EmailConfirmed</td>
+            <td><a asp-action="UpdateUser" asp-route-id="@user.Id">Edytuj użytkownika</a></td>
+            <td>
+                <form asp-action="DeleteUser" asp-route-id="@user.Id" method="post">
+                    <button type="submit">Usuń użytkownika</button>
+                </form>
+            </td>
+        </tr>
+    }
+</table>
+
+<h3> Edytuj zawartość bazy danych </h3>
+<ul>
+    <li>
+        <a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="Index">Kategoria</a>
+    </li>
+    <li>
+        <a class="nav-link text-dark" asp-area="" asp-controller="Party" asp-action="Index">Imprezy</a>
+    </li>
+    <li>
+        <a class="nav-link text-dark" asp-area="" asp-controller="Region" asp-action="Index">Region</a>
+    </li>
+    <li>
+        <a class="nav-link text-dark" asp-area="" asp-controller="Subscription" asp-action="Index">Subskrypcja</a>
+    </li>
+    <li>
+        <a class="nav-link text-dark" asp-area="" asp-controller="Message" asp-action="Index">Wiadomość</a>
+    </li>
+    <li>
+        <a class="nav-link text-dark" asp-area="" asp-controller="Shelter" asp-action="Index">Schronisko</a>
+    </li>
+    <li>
+        <a class="nav-link text-dark" asp-area="" asp-controller="Trail" asp-action="Index">Szlak</a>
+    </li>
+    <li>
+        <a class="nav-link text-dark" asp-area="" asp-controller="Attraction" asp-action="Index">Atrakcje</a>
+    </li>
+    <li>
+        <a class="nav-link text-dark" asp-area="" asp-controller="UserPermission" asp-action="Index">Dostęp użytkownika</a>
+    </li>
+</ul>
+

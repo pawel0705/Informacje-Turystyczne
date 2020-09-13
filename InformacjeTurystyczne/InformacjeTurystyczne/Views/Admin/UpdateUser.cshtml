@@ -1,0 +1,26 @@
+﻿@model AppUser
+
+<h1>Aktualizuj informacje użytkownika</h1>
+<a asp-action="Index">Back</a>
+
+<div asp-validation-summary="All"></div>
+
+<form asp-action="UpdateUser" method="post">
+    <div>
+        <label asp-for="Id"></label>
+        <input asp-for="Id" disabled />
+    </div>
+    <div>
+        <label asp-for="Email"></label>
+        <input asp-for="Email" />
+    </div>
+    <div>
+        <label for="Password">Password</label>
+        <input name="Password" />
+    </div>
+    <div>
+        <label asp-for="EmailConfirmed"></label>
+        <input asp-for="EmailConfirmed" />
+    </div>
+    <button type="submit">Aktualizuj</button>
+</form>

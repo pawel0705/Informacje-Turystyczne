@@ -1,0 +1,115 @@
+﻿@model InformacjeTurystyczne.Models.AppUser
+
+<h1> Edit </h1>
+
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="UserName" class="control-label"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+
+            @{
+                int cnt = 0;
+                List<InformacjeTurystyczne.Models.ViewModels.PermissionPartyData> partys = ViewBag.Partys;
+                List<InformacjeTurystyczne.Models.ViewModels.PermissionRegionData> regions = ViewBag.Regions;
+                List<InformacjeTurystyczne.Models.ViewModels.PermissionShelterData> shelters = ViewBag.Shelters;
+                List<InformacjeTurystyczne.Models.ViewModels.PermissionTrailData> trails = ViewBag.Trails;
+            }
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Imprezy</th>
+                        <th>Regiony</th>
+                        <th>Schroniska</th>
+                        <th>Szlaki</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                <td>
+                    @{
+                        foreach (var party in partys)
+                        {
+
+                            <input type="checkbox"
+                                   name="selectedPartys"
+                                   value="@party.IdParty"
+                                   @(Html.Raw(party.Assigned ? "checked=\"checked\"" : "")) />
+                            @party.IdParty @party.Name
+                            <br>
+                        }
+                    }
+                </td>
+                <td>
+                    @{
+
+                        foreach (var region in regions)
+                        {
+
+                            <input type="checkbox"
+                                   name="selectedRegions"
+                                   value="@region.IdRegion"
+                                   @(Html.Raw(region.Assigned ? "checked=\"checked\"" : "")) />
+                            @region.IdRegion @region.Name
+                            <br>
+                        }
+                    }
+                </td>
+                <td>
+                    @{
+
+
+
+                        foreach (var shelter in shelters)
+                        {
+
+                            <input type="checkbox"
+                                   name="selectedShelters"
+                                   value="@shelter.IdShelter"
+                                   @(Html.Raw(shelter.Assigned ? "checked=\"checked\"" : "")) />
+                            @shelter.IdShelter @shelter.Name
+                            <br>
+                        }
+                    }
+                </td>
+                <td>
+                    @{
+                        foreach (var trail in trails)
+                        {
+
+
+                            <input type="checkbox"
+                                   name="selectedTrails"
+                                   value="@trail.IdTrail"
+                                   @(Html.Raw(trail.Assigned ? "checked=\"checked\"" : "")) />
+                            @trail.IdTrail @trail.Name
+                            <br>
+                        }
+                    }
+                </td>
+                </tbody>
+
+            </table>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,55 @@
+﻿@model IEnumerable<InformacjeTurystyczne.Models.Tabels.Subscription>
+
+
+<h1>Subscription</h1>
+
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdSubscription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsSubscribed)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.IdRegion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdUser)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdSubscription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsSubscribed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Region.Name)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.User.UserName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdSubscription">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.IdSubscription">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdSubscription">Delete</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

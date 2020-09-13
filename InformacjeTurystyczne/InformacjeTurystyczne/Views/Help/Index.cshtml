@@ -1,0 +1,45 @@
+﻿<div class="page help">
+    <div class="sidebar">
+    </div>
+    <div class="info__list" id="info__list">
+    </div>
+    <script type="module">
+        import Page from "./js/helpPage.js";
+        import Help from "./js/help.js";
+
+        window.addEventListener("load", () => {
+            let helpInfo = new Help("Informacje Turystyczne")
+            helpInfo.content = `Strona umożliwia przeglądanie wszystkich atrakcji, szlaków, wydarzeń czy schronisk, które są 
+            wpisane w naszym systemie. Umożliwia filtrowanie wyników według regionów oraz typu atrakcji, jak również
+            wygenerowanie raportu .pdf ze wszystkimi atrakcjami. Aby przefiltrować wyniki należy kliknąć w "filtruj", a następnie zaznaczać
+            lub odznaczać poszczególne opcje. Strona będzie aktualizować się automatycznie`;
+            let helpMsg = new Help("Powiadomienia")
+            helpMsg.content = `Strona umożliwia przeglądanie wszystkich powiadomień dotyczących atrakcji, szlaków, wydarzeń czy schronisk, które są 
+            wpisane w naszym systemie. Umożliwia filtrowanie wyników według regionów, jak również subskrypcje do danego regionu.
+            Opcja subskryptcji dostępna jest tylko dla zalogowanych użytkowników. Aby edytować swoje subskrypcje należy kliknąć 
+            "edytuj subskrypcje" a następnie wybrać, które regiony chce się zasubskrybować. Aby wyświetlić tylko wiadomości z 
+            danego regionu należy kliknąć przycisk "pokaż subskrypcje"`;
+            let helpNewMsg = new Help("Wiadomości")
+            helpNewMsg.content = `Strona umożliwia dodawanie nowych wiadomości do systemu. Wymaga bycia zalogowanym jako administrator
+            lub moderator oraz, w przypadku moderatora, wymaga uprawnień do danego regionu"`;
+            let helpUsers = new Help("Użytkownicy")
+            helpUsers.content = `Strona umożliwia nadawanie uprawnień użytkownikom. Wymaga bycia zalogowanym jako administrator
+            lub moderator oraz, w przypadku moderatora, nie pozwala na nadanie uprawnień do regionów, do których moderator
+            sam nie ma uprawnień"`;
+            let helpAdmin = new Help("Panel Admina")
+            helpAdmin.content = `Strona umożliwia bezpośredni wgląd oraz edycję bazy danych. Wymaga bycia zalogowanym jako administrator."`;
+            let helpRoles = new Help("Zarządzanie rolami")
+            helpRoles.content = `Pozwala na dodawanie i usuwanie ról, jednak jej podstawową funkcją jest przypisywanie użytkowników do ról.
+            W tym celu należy kliknąć aktualizuj, a następnie wybrać uzytkowników, których chce się do tej roli przydzielić, lub, którym chce się
+            tę rolę odebrać. Opcja dostępna tylko dla administratora`;
+            let helpSignIn = new Help("Rejestracja")
+            helpSignIn.content = `W celu rejestracji w systemie, należy podać nazwę użytkownika, email, hasło a następnie potwierdzić adres,
+            poprzes wejście w przesłany emailem link. Można teraz zalogować się do systemu`;
+
+            let helps = [helpInfo, helpMsg, helpNewMsg, helpUsers, helpAdmin, helpRoles, helpSignIn];
+
+            let helpPage = new Page(helps);
+            helpPage.renderItems();
+        });
+    </script>
+</div>

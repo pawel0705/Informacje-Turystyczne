@@ -1,0 +1,16 @@
+﻿@model RoleVM
+
+@{
+    ViewData["Title"] = "Create New Role";
+}
+
+<h1>Utwórz nową rolę</h1>
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="RoleName"></label>
+        <input asp-for="RoleName" />
+    </div>
+    
+    <button type="submit">Utwórz rolę</button>
+</form>

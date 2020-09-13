@@ -1,0 +1,44 @@
+﻿@model dynamic
+@using InformacjeTurystyczne.Models.Tabels;
+
+<div class="page users">
+    <div class="sidebar">
+    </div>
+    <div class="info__list" id="info__list">
+    </div>
+    <script type="module">
+        import Page from "./js/usersPage.js";
+        import User from "./js/user.js";
+
+        window.addEventListener("load", () => {
+            let users = [];
+            let user = new User();
+
+            @foreach(var user in (List<AppUser>) Model.users)
+            {
+            <text>
+                user = new User();
+                user.id = "@Html.Raw(user.Id)";
+                user.name = "@Html.Raw(user.UserName)";
+                user.addUrl = "@Url.Action("AddRegionPermission")";
+                user.removeUrl = "@Url.Action("RemoveRegionPermission")";
+                @foreach(var region in (List<Region>) Model.permissions)
+                {
+                    if (user.PermissionRegions.Select(p => p.Region.Name).Contains(region.Name))
+                    {
+                        @:user.regionPermissions["@Html.Raw(region.Name)"] = true;
+                    }
+                    else
+                    {
+                        @:user.regionPermissions["@Html.Raw(region.Name)"] = false;
+                    }
+                }
+                users.push(user);
+            </text>
+            }
+
+            let usersPage = new Page(users);
+            usersPage.renderItems();
+        });
+    </script>
+</div>
