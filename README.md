@@ -5,7 +5,7 @@ Aplikacja umożliwia rejestrację, logowanie (również przez Facebook lub konto
 
 ### Model logiczny bazy danych
 
-![screenshot](/images/Screenshot_t.png)
+![screenshot](/images/Screenshot_4.png)
 
 ### Wygląd aplikacji
 
