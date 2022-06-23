@@ -10,8 +10,6 @@ Aplikacja umożliwia rejestrację, logowanie (również przez Facebook lub konto
 <img src="/images/Screenshot_4.png" width="50%"/>
 </p>
 
-![screenshot](/images/Screenshot_4.png)
-
 ### Wygląd aplikacji
 
 <p align="center">
