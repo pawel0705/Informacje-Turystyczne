@@ -1,5 +1,5 @@
 # Informacje Turystyczne
-Projekt aplikacji webowej z zastosowaniem technologii ASP.NET Core (pierwsza moja styczność). Strona internetowa o informacjach turystycznych. Projekt treningowy. Założeniem aplikacji jest dodawanie informacji turystycznych i ich przeglądanie.
+Projekt aplikacji webowej z zastosowaniem technologii .NET Core (pierwsza moja styczność). Strona internetowa o informacjach turystycznych. Projekt treningowy. Założeniem aplikacji jest dodawanie informacji turystycznych i ich przeglądanie.
 
 Aplikacja umożliwia rejestrację, logowanie (również przez Facebook lub konto Google), dodawanie informacji, wyświetlanie informacji, generowanie raportu z informacjami w postaci pliku pdf.
 
